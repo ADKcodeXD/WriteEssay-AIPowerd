@@ -1,0 +1,7 @@
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-public-anon-key
+SUPABASE_KEY=your-backend-service-role-key
+GEMINI_API_KEY=your-gemini-api-key
+GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta
+# 32+ random characters; required for encrypted admin key settings.
+AI_SETTINGS_ENCRYPTION_KEY=replace-with-a-long-random-secret

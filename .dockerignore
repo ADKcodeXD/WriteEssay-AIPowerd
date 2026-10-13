@@ -1,0 +1,13 @@
+**/node_modules
+**/.next
+**/dist
+**/.turbo
+.git
+.github
+.local-run
+**/.env
+**/.env.*
+**/.dev.vars*
+**/.wrangler
+**/coverage
+**/*.log

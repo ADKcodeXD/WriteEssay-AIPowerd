@@ -1,0 +1,73 @@
+{
+  "name": "english-learn-driveby-ai",
+  "version": "1.0.0",
+  "description": "A simple project for a english learn and writing",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "private": true,
+  "author": "ADK",
+  "keywords": [
+    "nest",
+    "next",
+    "turborepo",
+    "next-auth",
+    "supabase"
+  ],
+  "devDependencies": {
+    "eslint": "^8.47.0",
+    "prettier": "^3.0.2",
+    "supabase": "^2.15.8",
+    "tsconfig": "*",
+    "turbo": "latest",
+    "@opennextjs/cloudflare": "1.14.0",
+    "wrangler": "4.59.0",
+    "@cloudflare/workers-types": "5.20260916.1",
+    "esbuild": "0.25.12",
+    "hono": "4.13.8"
+  },
+  "scripts": {
+    "build": "node scripts/cloudflare-build.mjs",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "docker:dev": "docker-compose -f docker-compose.dev.yml up",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "generate-types": "ts-node scripts/generate-types.ts",
+    "build:cloudflare": "node scripts/cloudflare-build.mjs",
+    "deploy": "node scripts/cloudflare-deploy.mjs",
+    "preview:cloudflare": "wrangler dev",
+    "test:cloudflare": "yarn workspace @repo/entity-ts-definition build && node --test tests/cloudflare/*.test.mjs",
+    "build:apps": "turbo run build",
+    "deploy:cloudflare": "yarn build:cloudflare && yarn deploy"
+  },
+  "license": "ISC",
+  "main": "index.js",
+  "repository": "https://github.com/ADKcodeXD/WriteEssay-AIPowerd.git",
+  "cloudflare": {
+    "bindings": {
+      "SUPABASE_URL": {
+        "description": "Existing Supabase project URL."
+      },
+      "SUPABASE_ANON_KEY": {
+        "description": "Public anon key, never a service-role key."
+      },
+      "SUPABASE_KEY": {
+        "description": "Backend service-role key; kept in Worker secrets."
+      },
+      "GEMINI_API_KEY": {
+        "description": "Gemini API key. Never use credentials from the original repository."
+      },
+      "AI_SETTINGS_ENCRYPTION_KEY": {
+        "description": "Secret used to encrypt AI keys saved from the admin panel."
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "writeessay",
+  "main": "cloudflare/worker.ts",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "minify": true,
+  "assets": {
+    "directory": "apps/english-learn-web/.open-next/assets",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/healthz", "/admin", "/admin/*", "/public-config.js"]
+  },
+  "observability": { "enabled": true },
+  "kv_namespaces": [{ "binding": "CACHE" }],
+  "queues": {
+    "producers": [
+      { "binding": "JOBS", "queue": "writeessay-enrichment" },
+      { "binding": "FAILED_JOBS", "queue": "writeessay-enrichment-dlq" }
+    ],
+    "consumers": [{ "queue": "writeessay-enrichment", "max_batch_size": 1, "max_retries": 3, "dead_letter_queue": "writeessay-enrichment-dlq" }]
+  },
+  "vars": { "PUBLIC_API_BASE_URL": "/api" },
+  "limits": { "cpu_ms": 30000 }
+}
